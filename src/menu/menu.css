@@ -1,0 +1,31 @@
+.services {
+  width: 90%;
+  min-height: 200px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 30px 40px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  transition: opacity 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.services>.service {
+  flex: 1;
+  padding: 30px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.services>.service:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.services>.service>h3 {
+  margin: 0;
+  padding-top: 5px;
+  text-align: center;
+  color: white;
+}

@@ -1,6 +1,16 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>loader/loader.html</file>
+        <file>loader/loader.js</file>
+        <file>loader/loader.css</file>
+        <file>menu/menu.html</file>
+        <file>menu/menu.js</file>
+        <file>menu/base.js</file>
+        <file>menu/menu.css</file>
+        <file>menu/base.css</file>
+        <file>../services/netflix.png</file>
+        <file>../services/youtube.svg</file>
     </qresource>
 </RCC>
 

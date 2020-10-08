@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    background-color: rgba(52, 52, 52, 0.95);
+    display: grid;
+    height: 100vh;
+}
+
+h1, h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: white;
+}
+
+.services>.service>img, .loader>img {
+    margin: 0 auto;
+    display: block;
+    height: 110px;
+    width: auto;
+    padding: 5px 0;
+  }
