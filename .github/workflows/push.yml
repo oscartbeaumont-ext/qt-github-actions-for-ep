@@ -83,7 +83,7 @@ jobs:
       - name: Output # TEMP
         run: sudo apt-get -y install tree && tree appimg
       - name: LinuxDeployQT
-        run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/share/applications/ElectronPlayer.desktop -appimage
+        run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/usr/share/applications/ElectronPlayer.desktop -appimage
       - uses: actions/upload-artifact@v2
         with:
           name: linux-appimage
