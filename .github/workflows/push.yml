@@ -41,7 +41,7 @@ jobs:
       - name: MacDeployQt
         run: macdeployqt ElectronPlayer.app -qmldir=./
       - name: Build DMG
-        run: create-dmg ElectronPlayer.app
+        run: create-dmg ElectronPlayer.app && exit 0 # This exit 0 is bad and should be fixed once code signing is added
       - name: Zip it up # ?
         run: tar czf ElectronPlayer.dmg.tar.gz ElectronPlayer.dmg
       - name: Output # TEMP
