@@ -36,12 +36,14 @@ jobs:
         run: make
       - name: MacDeployQt
         run: macdeployqt ElectronPlayer.app -qmldir=./
+      - name: Zip it up
+        run: tar czf ElectronPlayer.app.tar.gz ElectronPlayer.app
       - name: Output
         run: ls -l
       - uses: actions/upload-artifact@v2
         with:
           name: macos-binary
-          path: ElectronPlayer.app
+          path: ElectronPlayer.app.tar.gz
 #   build-linux:
 #     runs-on: ubuntu-latest
 #     steps:
