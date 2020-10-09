@@ -19,10 +19,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("ElectronPlayer");
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
-    #ifndef __linux__
-    QtWebEngine::initialize();
-    #endif
     QGuiApplication app(argc, argv);
+    QtWebEngine::initialize();
 
     QSettings settings;
     if (settings.value("resetSettingsToDefault", 0).toInt() == 1) {
