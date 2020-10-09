@@ -6,3 +6,6 @@ SOURCES += src/main.cpp \
 HEADERS += \
     src/core.h
 RESOURCES += src/qml.qrc
+
+RC_ICONS = build/icon.ico
+ICON = build/icon.icns

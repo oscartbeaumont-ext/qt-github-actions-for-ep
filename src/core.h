@@ -8,6 +8,7 @@
 #include <QSettings>
 #include <QApplication>
 #include <QProcess>
+#include <QWebEngineView>
 
 class Core : public QObject
 {
@@ -17,7 +18,7 @@ public:
 
     Q_INVOKABLE QString getURLDomain(QString rawUrl);
     Q_INVOKABLE void openURL(QString url);
-    Q_INVOKABLE void resetSettings();
+    Q_INVOKABLE void restartApplication();
 
 signals:
 

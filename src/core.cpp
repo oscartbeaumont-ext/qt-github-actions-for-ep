@@ -14,11 +14,8 @@ void Core::openURL(QString url)
     QDesktopServices::openUrl(QUrl(url));
 }
 
-void Core::resetSettings()
+void Core::restartApplication()
 {
-    QSettings settings;
-    settings.clear();
     qApp->quit();
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
 }
-
