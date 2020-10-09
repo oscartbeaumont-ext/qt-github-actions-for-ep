@@ -13,39 +13,49 @@ on:
 
 # $GITHUB_WORKSPACE
 # Merge all jobs into a simple one covering all platforms if possible
+# Caching Qt Install
 
 jobs:
   build-macos:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v1
+        with:
+          path: ../Qt
+          key: ${{ runner.os }}-QtCache
       - uses: jurplel/install-qt-action@v2
         with:
           modules: qtwebengine
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
       - name: Qmake
         run: qmake
-      - name: Qmake
+      - name: Make
         run: make
+      - name: MacDeployQt
+        run: macdeployqt ElectronPlayer.app -qmldir=./
       - name: Output
         run: ls -l
       - uses: actions/upload-artifact@v2
         with:
           name: macos-binary
-          path: ElectronPlayer.app/
-  build-linux:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: jurplel/install-qt-action@v2
-        with:
-          modules: qtwebengine
-      - name: Qmake
-        run: qmake
-      - name: Qmake
-        run: make
-      - name: Output
-        run: ls -l
-      - uses: actions/upload-artifact@v2
-        with:
-          name: linux-binary
-          path: ElectronPlayer
+          path: ElectronPlayer.app
+#   build-linux:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: jurplel/install-qt-action@v2
+#         with:
+#           modules: qtwebengine
+#       - name: Qmake
+#         run: qmake
+#       - name: Qmake
+#         run: make
+#       - name: Output
+#         run: ls -l
+#       - uses: actions/upload-artifact@v2
+#         with:
+#           name: linux-binary
+#           path: ElectronPlayer
