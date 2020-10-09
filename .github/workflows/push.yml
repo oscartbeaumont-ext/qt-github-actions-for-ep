@@ -63,8 +63,8 @@ jobs:
           repo: "probonopd/linuxdeployqt"
           version: "latest"
           file: "linuxdeployqt-7-x86_64.AppImage"
-      - name: Install libraries
-        run: sudo apt-get install libqt5x11extras5 # libxcb-xinerama0 libqt5x11extras5 libxcb-randr0-dev libxcb-xtest0-dev libxcb-xinerama0-dev libxcb-shape0-dev libxcb-xkb-dev && sudo ln -sf /qt/5.15.1/gcc_64/plugins/platforms/ /usr/bin/
+      - name: Link libraries
+        run: sudo ln -sf /qt/5.15.1/gcc_64/plugins/platforms/ /usr/bin/ #sudo apt-get install libqt5x11extras5 # libxcb-xinerama0 libqt5x11extras5 libxcb-randr0-dev libxcb-xtest0-dev libxcb-xinerama0-dev libxcb-shape0-dev libxcb-xkb-dev && sudo ln -sf /qt/5.15.1/gcc_64/plugins/platforms/ /usr/bin/
       - name: Set linuxdeployqt executable
         run: sudo chmod a+x linuxdeployqt-7-x86_64.AppImage
       - name: Qmake
