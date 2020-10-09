@@ -37,7 +37,7 @@ jobs:
       - name: Install sindresorhus/create-dmg
         run: npm install --global create-dmg
       - name: Qmake
-        run: qmake
+        run: /usr/local/opt/qt/bin/qmake
       - name: Make
         run: make
       - name: MacDeployQt
