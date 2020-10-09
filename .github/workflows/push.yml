@@ -76,7 +76,7 @@ jobs:
           cp ElectronPlayer appimg/usr/bin/ElectronPlayer
           mkdir -p appimg/lib
           mkdir -p appimg/share/applications
-          cp ElectronPlayer appimg/usr/bin/ElectronPlayer
+          cp ./build/ElectronPlayer.desktop appimg/usr/share/applications/ElectronPlayer.desktop
       - name: LinuxDeployQT
         run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/usr/share/applications/ElectronPlayer.desktop -appimage
       - name: Output # TEMP
