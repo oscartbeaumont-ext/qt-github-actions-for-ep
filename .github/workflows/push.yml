@@ -69,20 +69,20 @@ jobs:
         run: qmake CONFIG+=release PREFIX=/usr
       - name: Make
         run: make
-      - name: Make Install
-        run: make INSTALL_ROOT=appimg -j$(nproc) install
       - name: Build App Image Tree
         run: |
           mkdir appimg
           mkdir -p appimg/usr/bin
-          cp ElectronPlayer appimg/usr/bin/ElectronPlayer
+          #cp ElectronPlayer appimg/usr/bin/ElectronPlayer
           mkdir -p appimg/lib
           mkdir -p appimg/share/applications
           cp ./build/ElectronPlayer.desktop appimg/share/applications/ElectronPlayer.desktop
+      - name: Make Install
+        run: make INSTALL_ROOT=appimg -j$(nproc) install
+      - name: Output # TEMP
+        run: tree appimg
       - name: LinuxDeployQT
         run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/share/applications/ElectronPlayer.desktop -appimage
-      - name: Output # TEMP
-        run: ls -l
       - uses: actions/upload-artifact@v2
         with:
           name: linux-appimage
