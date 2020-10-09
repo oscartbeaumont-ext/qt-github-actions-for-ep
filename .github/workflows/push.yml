@@ -67,13 +67,19 @@ jobs:
         run: sudo chmod a+x linuxdeployqt-7-x86_64.AppImage
       - name: Qmake
         run: qmake
-      - name: Qmake
-        run: make
+      - name: Build App Image Tree
+        run: |
+          mkdir appimg
+          mkdir -p appimg/usr/bin
+          cp ElectronPlayer appimg/usr/bin/ElectronPlayer
+          mkdir -p appimg/lib
+          mkdir -p appimg/share/applications
+          cp ElectronPlayer appimg/usr/bin/ElectronPlayer
       - name: LinuxDeployQT
-        run: ./linuxdeployqt-7-x86_64.AppImage --help
+        run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/usr/share/applications/ElectronPlayer.desktop -appimage
       - name: Output
         run: ls -l
-#       - uses: actions/upload-artifact@v2
-#         with:
-#           name: linux-binary
-#           path: ElectronPlayer
+      - uses: actions/upload-artifact@v2
+        with:
+          name: linux-appimage
+          path: ElectronPlayer.appimage
