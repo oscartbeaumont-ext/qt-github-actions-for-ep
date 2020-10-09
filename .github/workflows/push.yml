@@ -41,7 +41,7 @@ jobs:
       - name: MacDeployQt
         run: macdeployqt ElectronPlayer.app -qmldir=./
       - name: Build DMG
-        run: create-dmg ElectronPlayer.app && exit 0 # This exit 0 is bad and should be fixed once code signing is added
+        run: "create-dmg ElectronPlayer.app || :" # Ignoring error is bad should be fixed when code signing is added
       - name: Zip it up # ?
         run: tar czf ElectronPlayer.dmg.tar.gz ElectronPlayer.dmg
       - name: Output # TEMP
@@ -50,19 +50,29 @@ jobs:
         with:
           name: macos-binary
           path: ElectronPlayer.dmg
-#   build-linux:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: jurplel/install-qt-action@v2
-#         with:
-#           modules: qtwebengine
-#       - name: Qmake
-#         run: qmake
-#       - name: Qmake
-#         run: make
-#       - name: Output
-#         run: ls -l
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jurplel/install-qt-action@v2
+        with:
+          modules: qtwebengine
+      - name: Install linuxdeployqt
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          repo: "probonopd/linuxdeployqt"
+          version: "latest"
+          file: "linuxdeployqt-7-x86_64.AppImage"
+      - name: Set linuxdeployqt executable
+        run: chmod a+x linuxdeployqt-7-x86_64.AppImage
+      - name: Qmake
+        run: qmake
+      - name: Qmake
+        run: make
+      - name: LinuxDeployQT
+        run: linuxdeployqt-7-x86_64.AppImage --help
+      - name: Output
+        run: ls -l
 #       - uses: actions/upload-artifact@v2
 #         with:
 #           name: linux-binary
