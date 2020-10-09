@@ -1,7 +1,7 @@
 // TODO: Update these as much as possible
 import QtQuick 2.0
 import QtQuick.Window 2.0
-import QtQuick.Controls 2.15
+import QtQuick.Controls 2.0
 import QtQuick.Controls 1.2 as OldControls
 import QtQuick.Layouts 1.0
 import Qt.labs.settings 1.0
