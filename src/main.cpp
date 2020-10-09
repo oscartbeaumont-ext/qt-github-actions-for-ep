@@ -23,7 +23,9 @@ int main(int argc, char *argv[])
     QtWebEngine::initialize();
     #endif
     QGuiApplication app(argc, argv);
+    #ifdef __linux__
     QtWebEngine::initialize();
+     #endif
 
     QSettings settings;
     if (settings.value("resetSettingsToDefault", 0).toInt() == 1) {
