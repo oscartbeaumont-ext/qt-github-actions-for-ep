@@ -79,6 +79,8 @@ jobs:
           mkdir -p appimg/usr/lib
           mkdir -p appimg/usr/share/applications
           cp ./build/ElectronPlayer.desktop appimg/usr/share/applications/ElectronPlayer.desktop
+          mkdir -p appimg/usr/share/icons/hicolor/256x256/apps
+          cp ./build/icon-256.png appimg/usr/share/applications/ElectronPlayer.png
       #- name: Make Install
       #  run: make INSTALL_ROOT=appimg/ -j$(nproc) install
       - name: Output # TEMP
