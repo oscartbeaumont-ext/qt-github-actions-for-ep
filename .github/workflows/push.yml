@@ -76,9 +76,9 @@ jobs:
           cp ElectronPlayer appimg/usr/bin/ElectronPlayer
           mkdir -p appimg/lib
           mkdir -p appimg/share/applications
-          cp ./build/ElectronPlayer.desktop appimg/usr/share/applications/ElectronPlayer.desktop
+          cp ./build/ElectronPlayer.desktop appimg/share/applications/ElectronPlayer.desktop
       - name: LinuxDeployQT
-        run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/usr/share/applications/ElectronPlayer.desktop -appimage
+        run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/share/applications/ElectronPlayer.desktop -appimage
       - name: Output # TEMP
         run: ls -l
       - uses: actions/upload-artifact@v2
