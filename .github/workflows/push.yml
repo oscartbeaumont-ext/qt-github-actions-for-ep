@@ -42,6 +42,8 @@ jobs:
         run: make
       - name: MacDeployQt
         run: /usr/local/opt/qt/bin/macdeployqt ElectronPlayer.app -qmldir=./
+      - name: Fix MacDeployAt bug
+        run: rm -rf ElectronPlayer.app/Contents/Frameworks/QtWebEngineCore.framework/Versions/5/Helpers/QtWebEngineProcess.app && cp -r /usr/local/Cellar/qt/5.15.1/lib/QtWebEngineCore.framework/Versions/5/Helpers/QtWebEngineProcess.app ElectronPlayer.app/Contents/Frameworks/QtWebEngineCore.framework/Versions/5/Helpers/QtWebEngineProcess.app
       - name: Build DMG
         run: "create-dmg ElectronPlayer.app || :" # Ignoring error is bad should be fixed when code signing is added
       - uses: actions/upload-artifact@v2
