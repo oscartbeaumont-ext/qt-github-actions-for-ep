@@ -51,7 +51,7 @@ jobs:
           name: macos-binary
           path: ElectronPlayer*.dmg
   build-linux:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@v2
       - uses: jurplel/install-qt-action@v2
