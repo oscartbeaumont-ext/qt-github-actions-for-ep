@@ -16,74 +16,75 @@ on:
 # Caching Qt Install
 
 jobs:
-  build-macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-#       - name: Cache Qt
-#         id: cache-qt
-#         uses: actions/cache@v1
-#         with:
-#           path: ../Qt
-#           key: ${{ runner.os }}-QtCache
-#       - uses: jurplel/install-qt-action@v2
-#         with:
-#           modules: qtwebengine
-#           cached: ${{ steps.cache-qt.outputs.cache-hit }}
-      - name: Install Qt
-        run: brew install qt5 && brew link qt5 --force # echo 'export PATH="/usr/local/opt/qt/bin:$PATH"' >> /Users/runner/.bash_profile
-      - name: Install sindresorhus/create-dmg Dependencies
-        run: brew install graphicsmagick imagemagick
-      - name: Install sindresorhus/create-dmg
-        run: npm install --global create-dmg
-      - name: Qmake
-        run: /usr/local/opt/qt/bin/qmake
-      - name: Make
-        run: make
-      - name: MacDeployQt
-        run: /usr/local/opt/qt/bin/macdeployqt ElectronPlayer.app -qmldir=./
-      - name: Fix MacDeployAt bug
-        run: rm -rf ElectronPlayer.app/Contents/Frameworks/QtWebEngineCore.framework/Versions/5/Helpers/QtWebEngineProcess.app && cp -r /usr/local/Cellar/qt/5.15.1/lib/QtWebEngineCore.framework/Versions/5/Helpers/QtWebEngineProcess.app ElectronPlayer.app/Contents/Frameworks/QtWebEngineCore.framework/Versions/5/Helpers/QtWebEngineProcess.app
-      - name: Build DMG
-        run: "create-dmg ElectronPlayer.app || :" # Ignoring error is bad should be fixed when code signing is added
-      - uses: actions/upload-artifact@v2
-        with:
-          name: macos-binary
-          path: ElectronPlayer*.dmg
-#   build-linux:
-#     runs-on: ubuntu-16.04
+#   build-macos:
+#     runs-on: macos-latest
 #     steps:
 #       - uses: actions/checkout@v2
-#       - uses: jurplel/install-qt-action@v2
-#         with:
-#           modules: qtwebengine
-#       - name: Install linuxdeployqt
-#         uses: dsaltares/fetch-gh-release-asset@master
-#         with:
-#           repo: "probonopd/linuxdeployqt"
-#           version: "latest"
-#           file: "linuxdeployqt-7-x86_64.AppImage"
-#       - name: Set linuxdeployqt executable
-#         run: sudo chmod a+x linuxdeployqt-7-x86_64.AppImage
+# #       - name: Cache Qt
+# #         id: cache-qt
+# #         uses: actions/cache@v1
+# #         with:
+# #           path: ../Qt
+# #           key: ${{ runner.os }}-QtCache
+# #       - uses: jurplel/install-qt-action@v2
+# #         with:
+# #           modules: qtwebengine
+# #           cached: ${{ steps.cache-qt.outputs.cache-hit }}
+#       - name: Install Qt
+#         run: brew install qt5 && brew link qt5 --force # echo 'export PATH="/usr/local/opt/qt/bin:$PATH"' >> /Users/runner/.bash_profile
+#       - name: Install sindresorhus/create-dmg Dependencies
+#         run: brew install graphicsmagick imagemagick
+#       - name: Install sindresorhus/create-dmg
+#         run: npm install --global create-dmg
 #       - name: Qmake
-#         run: qmake CONFIG+=release PREFIX=/usr
+#         run: /usr/local/opt/qt/bin/qmake
 #       - name: Make
 #         run: make
-#       - name: Build App Image Tree
-#         run: |
-#           mkdir appimg
-#           mkdir -p appimg/usr/bin
-#           #cp ElectronPlayer appimg/usr/bin/ElectronPlayer
-#           mkdir -p appimg/lib
-#           mkdir -p appimg/share/applications
-#           cp ./build/ElectronPlayer.desktop appimg/share/applications/ElectronPlayer.desktop
-#       - name: Make Install
-#         run: make INSTALL_ROOT=appimg -j$(nproc) install
-#       - name: Output # TEMP
-#         run: sudo apt-get -y install tree && tree appimg
-#       - name: LinuxDeployQT
-#         run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/share/applications/ElectronPlayer.desktop -appimage
+#       - name: MacDeployQt
+#         run: /usr/local/opt/qt/bin/macdeployqt ElectronPlayer.app -qmldir=./
+#       - name: Fix MacDeployAt bug
+#         run: rm -rf ElectronPlayer.app/Contents/Frameworks/QtWebEngineCore.framework/Versions/5/Helpers/QtWebEngineProcess.app && cp -r /usr/local/Cellar/qt/5.15.1/lib/QtWebEngineCore.framework/Versions/5/Helpers/QtWebEngineProcess.app ElectronPlayer.app/Contents/Frameworks/QtWebEngineCore.framework/Versions/5/Helpers/QtWebEngineProcess.app
+#       - name: Build DMG
+#         run: "create-dmg ElectronPlayer.app || :" # Ignoring error is bad should be fixed when code signing is added
 #       - uses: actions/upload-artifact@v2
 #         with:
-#           name: linux-appimage
-#           path: ElectronPlayer.appimage
+#           name: macos-binary
+#           path: ElectronPlayer*.dmg
+  build-linux:
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jurplel/install-qt-action@v2
+        with:
+          modules: qtwebengine
+          version: 5.15.1
+      - name: Install linuxdeployqt
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          repo: "probonopd/linuxdeployqt"
+          version: "latest"
+          file: "linuxdeployqt-7-x86_64.AppImage"
+      - name: Set linuxdeployqt executable
+        run: sudo chmod a+x linuxdeployqt-7-x86_64.AppImage
+      - name: Qmake
+        run: qmake CONFIG+=release PREFIX=/usr
+      - name: Make
+        run: make
+      - name: Build App Image Tree
+        run: |
+          mkdir appimg
+          mkdir -p appimg/usr/bin
+          #cp ElectronPlayer appimg/usr/bin/ElectronPlayer
+          mkdir -p appimg/lib
+          mkdir -p appimg/share/applications
+          cp ./build/ElectronPlayer.desktop appimg/share/applications/ElectronPlayer.desktop
+      - name: Make Install
+        run: make INSTALL_ROOT=appimg -j$(nproc) install
+      - name: Output # TEMP
+        run: sudo apt-get -y install tree && tree appimg
+      - name: LinuxDeployQT
+        run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/share/applications/ElectronPlayer.desktop -appimage
+      - uses: actions/upload-artifact@v2
+        with:
+          name: linux-appimage
+          path: ElectronPlayer.appimage
