@@ -64,7 +64,7 @@ jobs:
           version: "latest"
           file: "linuxdeployqt-7-x86_64.AppImage"
       - name: Install libraries
-        run: sudo apt-get install libxcb-randr0-dev libxcb-xtest0-dev libxcb-xinerama0-dev libxcb-shape0-dev libxcb-xkb-dev
+        run: sudo apt-get install libxcb-xinerama0 libxcb-randr0-dev libxcb-xtest0-dev libxcb-xinerama0-dev libxcb-shape0-dev libxcb-xkb-dev
       - name: Set linuxdeployqt executable
         run: sudo chmod a+x linuxdeployqt-7-x86_64.AppImage
       - name: Qmake
