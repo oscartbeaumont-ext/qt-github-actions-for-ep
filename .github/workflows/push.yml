@@ -43,13 +43,13 @@ jobs:
       - name: Build DMG
         run: "create-dmg ElectronPlayer.app || :" # Ignoring error is bad should be fixed when code signing is added
       - name: Zip it up # ?
-        run: tar czf ElectronPlayer.dmg.tar.gz ElectronPlayer.dmg
+        run: tar czf ElectronPlayer.dmg.tar.gz ElectronPlayer*.dmg
       - name: Output # TEMP
         run: ls -l
       - uses: actions/upload-artifact@v2
         with:
           name: macos-binary
-          path: ElectronPlayer.dmg
+          path: ElectronPlayer*.dmg
   build-linux:
     runs-on: ubuntu-latest
     steps:
@@ -64,7 +64,7 @@ jobs:
           version: "latest"
           file: "linuxdeployqt-7-x86_64.AppImage"
       - name: Set linuxdeployqt executable
-        run: chmod a+x linuxdeployqt-7-x86_64.AppImage
+        run: sudo chmod a+x linuxdeployqt-7-x86_64.AppImage
       - name: Qmake
         run: qmake
       - name: Qmake
