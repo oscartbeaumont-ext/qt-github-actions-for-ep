@@ -9,11 +9,10 @@ on:
 # TODO:
 # - Unit Testing job
 # - GitHub Releases
-# - Mac (DMG), Linux (AppImage, Snap, Flatpak?) and Windows Builds (Msi)
+# - Linux (AppImage, Snap, Flatpak?) and Windows Builds (Msi)
 
-# $GITHUB_WORKSPACE
 # Merge all jobs into a simple one covering all platforms if possible
-# Caching Qt Install
+# Caching Qt Install/Brew
 
 jobs:
 #   build-macos:
@@ -64,6 +63,8 @@ jobs:
           repo: "probonopd/linuxdeployqt"
           version: "latest"
           file: "linuxdeployqt-7-x86_64.AppImage"
+      - name: Install libraries
+        run: sudo apt-get install libxcb-iccm4
       - name: Set linuxdeployqt executable
         run: sudo chmod a+x linuxdeployqt-7-x86_64.AppImage
       - name: Qmake
