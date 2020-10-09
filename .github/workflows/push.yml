@@ -70,7 +70,7 @@ jobs:
       - name: Qmake
         run: make
       - name: LinuxDeployQT
-        run: linuxdeployqt-7-x86_64.AppImage --help
+        run: ./linuxdeployqt-7-x86_64.AppImage --help
       - name: Output
         run: ls -l
 #       - uses: actions/upload-artifact@v2
