@@ -57,18 +57,12 @@ jobs:
         with:
           modules: qtwebengine
           version: 5.15.1
-      - name: Install linuxdeployqt
-        uses: dsaltares/fetch-gh-release-asset@master
-        with:
-          repo: "probonopd/linuxdeployqt"
-          version: "latest"
-          file: "linuxdeployqt-7-x86_64.AppImage"
+      - name: Install LinuxDeployQT
+        run: wget -c -nv -O linuxdeployqt.AppImage "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage" && sudo chmod a+x linuxdeployqt.AppImage
       - name: Install libraries # TODO: Which are required?
         run: sudo apt-get install libqt5x11extras5 libxcb-xinerama0 libqt5x11extras5 libxcb-randr0-dev libxcb-xtest0-dev libxcb-xinerama0-dev libxcb-shape0-dev libxcb-xkb-dev
       - name: Link libraries
         run: sudo ln -sf /qt/5.15.1/gcc_64/plugins/platforms/ /usr/bin/
-      - name: Set linuxdeployqt executable
-        run: sudo chmod a+x linuxdeployqt-7-x86_64.AppImage
       - name: Qmake
         run: qmake CONFIG+=release PREFIX=/usr
       - name: Make
@@ -86,9 +80,7 @@ jobs:
       #- name: Make Install
       #  run: make INSTALL_ROOT=appimg/ -j$(nproc) install
       - name: LinuxDeployQT
-        run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/usr/share/applications/ElectronPlayer.desktop -qmldir=. -qmldir=./src/ -qmldir=/qt/5.15.1/gcc_64/qml/ -appimage
-      - name: Output # TEMP
-        run: sudo apt-get -y install tree && tree .
+        run: ./linuxdeployqt.AppImage ./appimg/usr/share/applications/ElectronPlayer.desktop -qmldir=. -qmldir=./src/ -exclude-libs="libnss3.so,libnssutil3.so" -appimage
       - uses: actions/upload-artifact@v2
         with:
           name: linux-appimage
