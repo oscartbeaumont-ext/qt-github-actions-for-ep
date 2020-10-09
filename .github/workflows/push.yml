@@ -67,8 +67,8 @@ jobs:
         run: sudo chmod a+x linuxdeployqt-7-x86_64.AppImage
       - name: Qmake
         run: qmake
-      - name: Output One # TEMP
-        run: ls -l
+      - name: Make
+        run: make
       - name: Build App Image Tree
         run: |
           mkdir appimg
@@ -79,7 +79,7 @@ jobs:
           cp ElectronPlayer appimg/usr/bin/ElectronPlayer
       - name: LinuxDeployQT
         run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/usr/share/applications/ElectronPlayer.desktop -appimage
-      - name: Output Two # TEMP
+      - name: Output # TEMP
         run: ls -l
       - uses: actions/upload-artifact@v2
         with:
