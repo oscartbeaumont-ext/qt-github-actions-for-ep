@@ -6,7 +6,7 @@ import QtQuick.Controls 1.2 as OldControls
 import QtQuick.Layouts 1.0
 import Qt.labs.settings 1.0
 import QtWebEngine 1.1
-import QtWebChannel 1.1
+import QtWebChannel 1.0
 import QtQml 2.2
 import QtQuick.Dialogs 1.2
 
