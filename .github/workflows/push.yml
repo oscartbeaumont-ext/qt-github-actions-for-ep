@@ -41,7 +41,7 @@ jobs:
       - name: Make
         run: make
       - name: MacDeployQt
-        run: macdeployqt ElectronPlayer.app -qmldir=./
+        run: /usr/local/opt/qt/bin/macdeployqt ElectronPlayer.app -qmldir=./
       - name: Build DMG
         run: "create-dmg ElectronPlayer.app || :" # Ignoring error is bad should be fixed when code signing is added
       - name: Zip it up # ?
