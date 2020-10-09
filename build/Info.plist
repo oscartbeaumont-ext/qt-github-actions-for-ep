@@ -6,10 +6,12 @@
 	<string>ElectronPlayer</string>
 	<key>CFBundleIconFile</key>
 	<string>icon.icns</string>
-    <key>CFBundleName</key>
+    	<key>CFBundleName</key>
 	<string>ElectronPlayer</string>
 	<key>CFBundleIdentifier</key>
 	<string>me.otbeaumont.ElectronPlayer</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.0.1</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
