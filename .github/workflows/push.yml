@@ -20,8 +20,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
-
-      - name: Make?
-        run: make --help
-      - name: Qmake?
-        run: qmake --help
+      - name: Qmake
+        run: qmake
+      - name: Qmake
+        run: make
+      - name: Output
+        run: ls -l
