@@ -86,7 +86,7 @@ jobs:
       #- name: Make Install
       #  run: make INSTALL_ROOT=appimg/ -j$(nproc) install
       - name: LinuxDeployQT
-        run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/usr/share/applications/ElectronPlayer.desktop -appimage
+        run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/usr/share/applications/ElectronPlayer.desktop -qmldir=. -qmldir=./src/ -appimage
       - name: Output # TEMP
         run: sudo apt-get -y install tree && tree .
       - uses: actions/upload-artifact@v2
