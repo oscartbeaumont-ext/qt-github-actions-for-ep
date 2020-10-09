@@ -3,4 +3,5 @@ Type=Application
 Name=ElectronPlayer
 Comment=An Electron Based Web Video Services Player. Supporting Netflix, Youtube, Twitch, Floatplane, Hulu And More
 Exec=ElectronPlayer
+Icon=ElectronPlayer
 Categories=Video;
