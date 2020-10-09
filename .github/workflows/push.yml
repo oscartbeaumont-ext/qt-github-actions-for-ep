@@ -12,9 +12,27 @@ on:
 # - Mac (DMG), Linux (AppImage, Snap, Flatpak?) and Windows Builds (Msi)
 
 # $GITHUB_WORKSPACE
+# Merge all jobs into a simple one covering all platforms if possible
 
 jobs:
-  build:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jurplel/install-qt-action@v2
+        with:
+          modules: qtwebengine
+      - name: Qmake
+        run: qmake
+      - name: Qmake
+        run: make
+      - name: Output
+        run: ls -l
+      - uses: actions/upload-artifact@v2
+        with:
+          name: macos-binary
+          path: ElectronPlayer.app/
+  build-linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
