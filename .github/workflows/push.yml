@@ -16,40 +16,40 @@ on:
 # Caching Qt Install
 
 jobs:
-  build-macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Cache Qt
-        id: cache-qt
-        uses: actions/cache@v1
-        with:
-          path: ../Qt
-          key: ${{ runner.os }}-QtCache
-      - uses: jurplel/install-qt-action@v2
-        with:
-          modules: qtwebengine
-          cached: ${{ steps.cache-qt.outputs.cache-hit }}
-      - name: Install sindresorhus/create-dmg Dependencies
-        run: brew install graphicsmagick imagemagick
-      - name: Install sindresorhus/create-dmg
-        run: npm install --global create-dmg
-      - name: Qmake
-        run: qmake
-      - name: Make
-        run: make
-      - name: MacDeployQt
-        run: macdeployqt ElectronPlayer.app -qmldir=./
-      - name: Build DMG
-        run: "create-dmg ElectronPlayer.app || :" # Ignoring error is bad should be fixed when code signing is added
-      - name: Zip it up # ?
-        run: tar czf ElectronPlayer.dmg.tar.gz ElectronPlayer*.dmg
-      - name: Output # TEMP
-        run: ls -l
-      - uses: actions/upload-artifact@v2
-        with:
-          name: macos-binary
-          path: ElectronPlayer*.dmg
+#   build-macos:
+#     runs-on: macos-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Cache Qt
+#         id: cache-qt
+#         uses: actions/cache@v1
+#         with:
+#           path: ../Qt
+#           key: ${{ runner.os }}-QtCache
+#       - uses: jurplel/install-qt-action@v2
+#         with:
+#           modules: qtwebengine
+#           cached: ${{ steps.cache-qt.outputs.cache-hit }}
+#       - name: Install sindresorhus/create-dmg Dependencies
+#         run: brew install graphicsmagick imagemagick
+#       - name: Install sindresorhus/create-dmg
+#         run: npm install --global create-dmg
+#       - name: Qmake
+#         run: qmake
+#       - name: Make
+#         run: make
+#       - name: MacDeployQt
+#         run: macdeployqt ElectronPlayer.app -qmldir=./
+#       - name: Build DMG
+#         run: "create-dmg ElectronPlayer.app || :" # Ignoring error is bad should be fixed when code signing is added
+#       - name: Zip it up # ?
+#         run: tar czf ElectronPlayer.dmg.tar.gz ElectronPlayer*.dmg
+#       - name: Output # TEMP
+#         run: ls -l
+#       - uses: actions/upload-artifact@v2
+#         with:
+#           name: macos-binary
+#           path: ElectronPlayer*.dmg
   build-linux:
     runs-on: ubuntu-16.04
     steps:
@@ -67,6 +67,8 @@ jobs:
         run: sudo chmod a+x linuxdeployqt-7-x86_64.AppImage
       - name: Qmake
         run: qmake
+      - name: Output One # TEMP
+        run: ls -l
       - name: Build App Image Tree
         run: |
           mkdir appimg
@@ -77,7 +79,7 @@ jobs:
           cp ElectronPlayer appimg/usr/bin/ElectronPlayer
       - name: LinuxDeployQT
         run: ./linuxdeployqt-7-x86_64.AppImage ./appimg/usr/share/applications/ElectronPlayer.desktop -appimage
-      - name: Output
+      - name: Output Two # TEMP
         run: ls -l
       - uses: actions/upload-artifact@v2
         with:
