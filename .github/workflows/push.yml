@@ -27,3 +27,7 @@ jobs:
         run: make
       - name: Output
         run: ls -l
+      - uses: actions/upload-artifact@v2
+        with:
+          name: linux-binary
+          path: ElectronPlayer
