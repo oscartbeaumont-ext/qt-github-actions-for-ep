@@ -30,20 +30,26 @@ jobs:
         with:
           modules: qtwebengine
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
+      - name: Install sindresorhus/create-dmg Dependencies
+        run: brew install graphicsmagick imagemagick
+      - name: Install sindresorhus/create-dmg
+        run: npm install --global create-dmg
       - name: Qmake
         run: qmake
       - name: Make
         run: make
       - name: MacDeployQt
         run: macdeployqt ElectronPlayer.app -qmldir=./
-      - name: Zip it up
-        run: tar czf ElectronPlayer.app.tar.gz ElectronPlayer.app
-      - name: Output
+      - name: Build DMG
+        run: create-dmg ElectronPlayer.app
+      - name: Zip it up # ?
+        run: tar czf ElectronPlayer.dmg.tar.gz ElectronPlayer.dmg
+      - name: Output # TEMP
         run: ls -l
       - uses: actions/upload-artifact@v2
         with:
           name: macos-binary
-          path: ElectronPlayer.app.tar.gz
+          path: ElectronPlayer.dmg
 #   build-linux:
 #     runs-on: ubuntu-latest
 #     steps:
